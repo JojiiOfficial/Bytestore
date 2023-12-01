@@ -1,13 +1,37 @@
 [package]
-name = "test2"
+name = "bytestore"
 version = "0.1.0"
 edition = "2021"
+description = "Various data structures directly stored in memmapped files or encoded in memory."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-memmap2 = "0.9.0"
-bytes = "*"
-bincode = "*"
-serde = "*"
-fmmap = "*"
+memmap2 = "0.9"
+bytes = "1.5"
+bitcode = { version = "0.5", features = ["serde"] }
+serde = { version = "1", features = ["derive"] }
+bincode = { version = "1.3" }
+mult_split = { git = "https://github.com/JojiiOfficial/mult_split" }
+num-traits = { version = "0.2", default-features = false }
+varint-simd = { git = "https://github.com/as-com/varint-simd" }
+
+[profile.release]
+debug = 2
+overflow-checks = true
+#lto = "fat"
+
+[dev-dependencies]
+criterion = '*'
+
+[[bench]]
+name = "map"
+harness = false
+
+[[bench]]
+name = "bitvec"
+harness = false
+
+[[bench]]
+name = "number_seq"
+harness = false
